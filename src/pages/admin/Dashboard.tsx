@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Building, Users, CreditCard, AlertTriangle } from "lucide-react";
-import { Link } from "react-router-dom";
 
 interface DashboardStats {
   totalOrganizations: number;
@@ -44,7 +43,7 @@ export default function AdminDashboard() {
           org.subscription_status === 'active'
         ).length || 0;
 
-        // Calculate total revenue (simulated)
+        // Calculate total revenue
         const totalAmount = orgs?.reduce((sum, org) => sum + (org.subscription_amount || 0), 0) || 0;
 
         setStats({
@@ -70,14 +69,8 @@ export default function AdminDashboard() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">Painel Administrativo</h1>
-        <Link to="/admin/organizations">
-          <Button className="flex items-center gap-2">
-            <Building className="h-4 w-4" />
-            Ver Todas Empresas
-          </Button>
-        </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
