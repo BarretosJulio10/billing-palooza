@@ -15,7 +15,6 @@ export function useSignIn() {
       setLoading(true);
       console.log(`Attempting to sign in: ${email}`);
       
-      // Sign in with provided credentials
       const { data: authData, error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -48,7 +47,7 @@ export function useSignIn() {
       }
 
       // Check if admin and redirect accordingly
-      if (isAdmin || email === 'julioquintanilha@hotmail.com') {
+      if (isAdmin || organization.isAdmin) {
         console.log("Admin user detected, redirecting to admin panel");
         navigate('/admin');
       } else {
