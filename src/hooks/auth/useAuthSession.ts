@@ -18,7 +18,7 @@ export function useAuthSession() {
       const result = await fetchUserData(user.id);
       setAppUser(result.appUser);
       setOrganization(result.organization);
-      setIsAdmin(result.isAdmin);
+      setIsAdmin(result.appUser?.role === 'admin' || false);
       return result;
     }
     return null;
@@ -33,7 +33,7 @@ export function useAuthSession() {
         fetchUserData(session.user.id).then((result) => {
           setAppUser(result.appUser);
           setOrganization(result.organization);
-          setIsAdmin(result.isAdmin);
+          setIsAdmin(result.appUser?.role === 'admin' || false);
           setLoading(false);
         });
       } else {
@@ -50,7 +50,7 @@ export function useAuthSession() {
         fetchUserData(session.user.id).then((result) => {
           setAppUser(result.appUser);
           setOrganization(result.organization);
-          setIsAdmin(result.isAdmin);
+          setIsAdmin(result.appUser?.role === 'admin' || false);
         });
       } else {
         setAppUser(null);
