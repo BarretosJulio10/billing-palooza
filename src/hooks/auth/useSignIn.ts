@@ -32,11 +32,11 @@ export function useSignIn() {
       
       console.log("User authenticated successfully:", authData.user.id);
 
-      // Fetch user and organization data
-      const { appUser, organization, isAdmin } = await fetchUserData(authData.user.id);
+      // Fetch user data with the new RLS policies
+      const { appUser, organization } = await fetchUserData(authData.user.id);
       
       if (!appUser) {
-        // User needs to complete profile
+        console.log("User needs to complete profile, redirecting...");
         navigate('/complete-profile');
         return;
       }
@@ -47,7 +47,7 @@ export function useSignIn() {
       }
 
       // Check if admin and redirect accordingly
-      if (isAdmin || organization.isAdmin) {
+      if (appUser.role === 'admin') {
         console.log("Admin user detected, redirecting to admin panel");
         navigate('/admin');
       } else {
@@ -57,7 +57,7 @@ export function useSignIn() {
 
       toast({
         title: "Login realizado com sucesso",
-        description: isAdmin ? "Bem-vindo administrador!" : "Bem-vindo de volta!",
+        description: appUser.role === 'admin' ? "Bem-vindo administrador!" : "Bem-vindo de volta!",
       });
     } catch (error: any) {
       console.error('Full login error details:', error);

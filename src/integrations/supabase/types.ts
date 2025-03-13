@@ -9,16 +9,117 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      organizations: {
+        Row: {
+          blocked: boolean | null
+          created_at: string | null
+          deleted_at: string | null
+          email: string | null
+          gateway: string | null
+          id: string
+          is_admin: boolean | null
+          last_payment_date: string | null
+          name: string
+          phone: string | null
+          subscription_amount: number | null
+          subscription_due_date: string | null
+          subscription_status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          blocked?: boolean | null
+          created_at?: string | null
+          deleted_at?: string | null
+          email?: string | null
+          gateway?: string | null
+          id?: string
+          is_admin?: boolean | null
+          last_payment_date?: string | null
+          name: string
+          phone?: string | null
+          subscription_amount?: number | null
+          subscription_due_date?: string | null
+          subscription_status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          blocked?: boolean | null
+          created_at?: string | null
+          deleted_at?: string | null
+          email?: string | null
+          gateway?: string | null
+          id?: string
+          is_admin?: boolean | null
+          last_payment_date?: string | null
+          name?: string
+          phone?: string | null
+          subscription_amount?: number | null
+          subscription_due_date?: string | null
+          subscription_status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      users: {
+        Row: {
+          created_at: string | null
+          first_name: string | null
+          id: string
+          last_name: string | null
+          organization_id: string | null
+          role: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          first_name?: string | null
+          id: string
+          last_name?: string | null
+          organization_id?: string | null
+          role?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          organization_id?: string | null
+          role?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "users_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      check_user_organization_access: {
+        Args: {
+          checking_user_id: string
+          target_organization_id: string
+        }
+        Returns: boolean
+      }
+      is_admin: {
+        Args: {
+          user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      gateway_type: "mercadopago" | "asaas"
+      subscription_status_type: "active" | "overdue" | "canceled" | "permanent"
     }
     CompositeTypes: {
       [_ in never]: never
