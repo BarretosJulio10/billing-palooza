@@ -103,13 +103,6 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      check_user_organization_access: {
-        Args: {
-          checking_user_id: string
-          target_organization_id: string
-        }
-        Returns: boolean
-      }
       is_admin: {
         Args: {
           user_id: string
